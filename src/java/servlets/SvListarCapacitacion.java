@@ -4,6 +4,7 @@
  */
 package servlets;
 
+import conexion.Singleton;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.*;
 
 /**
  *
@@ -38,7 +40,7 @@ public class SvListarCapacitacion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SvListarCapacitacion</title>");            
+            out.println("<title>Servlet SvListarCapacitacion</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SvListarCapacitacion at " + request.getContextPath() + "</h1>");
@@ -59,14 +61,28 @@ public class SvListarCapacitacion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+           System.out.println("estoy aqui");
         HttpSession session = request.getSession();
-        
-        if(session.getAttribute("nombre") == null){
+
+        if (session.getAttribute("nombre") == null) {
             response.sendRedirect(request.getContextPath() + "/SvLogin");
-        }
-        else {
-            //response.sendRedirect(request.getContextPath() + "/SvListarCapacitacion");
+        } else {
+            try {
+                System.out.println("antes de conexion");
+                Connection con = Singleton.getConnection();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM capacitacion");
+                while (rs.next()) {
+                    
+                    System.out.println(rs.getInt(1)
+                            + " " + rs.getString(2)
+                            + " " + rs.getString(3));
+                                    System.out.println("despues de conexion");
+                }
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
             RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp");
             dispatcher.forward(request, response);
         }
@@ -84,6 +100,7 @@ public class SvListarCapacitacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                   System.out.println("estoy aqui");
         processRequest(request, response);
     }
 
