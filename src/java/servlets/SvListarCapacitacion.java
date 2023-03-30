@@ -4,6 +4,9 @@
  */
 package servlets;
 
+import Interface.DAOCapacitacion;
+import Interface.DAOCapacitacionImpl;
+import clases.Capacitacion;
 import conexion.Singleton;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -68,18 +73,10 @@ public class SvListarCapacitacion extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/SvLogin");
         } else {
             try {
-                Connection con = Singleton.conectar();
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM capacitacion");
-                while (rs.next()) {
-                    
-                    System.out.println(rs.getInt(1)
-                            + " " + rs.getString(2)
-                            + " " + rs.getString(3));
-                }
-                con.close();
-            } catch (Exception e) {
-                System.out.println(e);
+                DAOCapacitacion dao = new DAOCapacitacionImpl();
+                request.setAttribute("lista", dao.listar());
+            } catch (Exception e){
+                System.out.println("ERROR: " + e.getMessage());
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp");
             dispatcher.forward(request, response);
@@ -98,7 +95,6 @@ public class SvListarCapacitacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                   System.out.println("estoy aqui");
         processRequest(request, response);
     }
 

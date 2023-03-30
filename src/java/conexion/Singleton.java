@@ -12,22 +12,17 @@ import java.sql.*;
  */
 public class Singleton {
 
-    public static Connection conn = null;
-    private final String URL = "jdbc:mysql://localhost:3306/spring_prev_riesgos";
+    private static Connection conn;
+    private final String URL = "jdbc:mysql://localhost:3306/SPRINT_PREV_RIESGOS";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String USER = "root";
     private final String PASS = "123Gronorf321";
 
     private Singleton() throws Exception {
-        
-    String URL = "jdbc:mysql://localhost:3306/spring_prev_riesgos";
-    String DRIVER = "com.mysql.cj.jdbc.Driver";
-    String USER = "root";
-    String PASS = "123Gronorf321";
 
         try {
-            conn = DriverManager.getConnection(URL, USER, PASS);
             Class.forName(DRIVER);
+            conn = DriverManager.getConnection(URL, USER, PASS);
         } catch (Exception e) {
             throw e;
         }
@@ -37,6 +32,7 @@ public class Singleton {
     public static Connection conectar() throws Exception {
         if (conn == null) {
             new Singleton();
+            System.out.println("conectado");
         }
         return conn;
     }

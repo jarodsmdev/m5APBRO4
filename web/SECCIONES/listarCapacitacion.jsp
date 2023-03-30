@@ -32,20 +32,19 @@
                         <th>Día</th>
                         <th>Lugar</th>
                         <th>Duración</th>
-                        <th>Cantidad</th>
+                        <th>Hora</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <c:forEach var="i" begin="1" end="10">
-                        
+                    <c:forEach items="${lista}" var="objetos">
                         <tr>
-                            <th>${i}</th>
-                            <td>123-${i}</td>
-                            <td>Lunes</td>
-                            <td>14:00</td>
-                            <td>40</td>
-                            <td>25</td>
+                            <td>"${objetos.idCapacitacion}"</td>
+                            <td>"${objetos.cliente_rutCliente}"</td>
+                            <td>"${objetos.capFecha}"</td>
+                            <td>"${objetos.capLugar}"</td>
+                            <td>"${objetos.capDuracion}"</td>
+                            <td>"${objetos.capHora}"</td>
                         </tr>
                 
                     </c:forEach>
