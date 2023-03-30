@@ -5,31 +5,47 @@
 package conexion;
 
 import java.sql.*;
+
 /**
  *
  * @author Yo
  */
 public class Singleton {
-    private static Connection conn = null;
-    
-    private Singleton() {
-        String url = "jdbc:mysql://localhost:3306/spring_prev_riesgos";
-        String driver = "com.mysql.cj.jdbc.Driver";
-        String usuario = "root";
-        String password = "123Gronorf321";
+
+    public static Connection conn = null;
+    private final String URL = "jdbc:mysql://localhost:3306/spring_prev_riesgos";
+    private final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private final String USER = "root";
+    private final String PASS = "123Gronorf321";
+
+    private Singleton() throws Exception {
         
+    String URL = "jdbc:mysql://localhost:3306/spring_prev_riesgos";
+    String DRIVER = "com.mysql.cj.jdbc.Driver";
+    String USER = "root";
+    String PASS = "123Gronorf321";
+
         try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, usuario, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            conn = DriverManager.getConnection(URL, USER, PASS);
+            Class.forName(DRIVER);
+        } catch (Exception e) {
+            throw e;
         }
+
     }
-    
-    public static Connection getConnection() {
+
+    public static Connection conectar() throws Exception {
         if (conn == null) {
             new Singleton();
         }
         return conn;
+    }
+
+    public static void cerrar() throws Exception {
+        if (conn != null) {
+            if (!conn.isClosed()) {
+                conn.close();
+            }
+        }
     }
 }

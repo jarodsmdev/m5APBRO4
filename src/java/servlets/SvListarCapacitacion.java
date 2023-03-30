@@ -61,15 +61,14 @@ public class SvListarCapacitacion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           System.out.println("estoy aqui");
+
         HttpSession session = request.getSession();
 
         if (session.getAttribute("nombre") == null) {
             response.sendRedirect(request.getContextPath() + "/SvLogin");
         } else {
             try {
-                System.out.println("antes de conexion");
-                Connection con = Singleton.getConnection();
+                Connection con = Singleton.conectar();
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM capacitacion");
                 while (rs.next()) {
@@ -77,7 +76,6 @@ public class SvListarCapacitacion extends HttpServlet {
                     System.out.println(rs.getInt(1)
                             + " " + rs.getString(2)
                             + " " + rs.getString(3));
-                                    System.out.println("despues de conexion");
                 }
                 con.close();
             } catch (Exception e) {
