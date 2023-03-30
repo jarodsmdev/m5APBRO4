@@ -6,7 +6,7 @@ package servlets;
 
 import conexion.ConexionSingleton;
 import java.sql.*;
-import dto.Cliente;
+import modelo.Cliente;
 import java.time.*;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,10 +1,10 @@
 
-package dto;
+package modelo;
 
 
 public class Cliente {
     //ATRIBUTOS DE CLASE
-    private int id;
+    private Integer id;
     private int rut;
     private String nombre;
     private String apellido;

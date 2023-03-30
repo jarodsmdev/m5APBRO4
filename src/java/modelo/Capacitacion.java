@@ -1,5 +1,5 @@
 
-package dto;
+package modelo;
 
 import java.util.Date;
 

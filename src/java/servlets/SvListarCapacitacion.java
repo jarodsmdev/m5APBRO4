@@ -4,13 +4,11 @@
  */
 package servlets;
 
-import conexion.ConexionSingleton;
-import dto.Capacitacion;
-import java.sql.*;
-import java.util.Calendar;
+
+import dao.DAOException;
+import modelo.Capacitacion;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mysql.MySQLDaoManager;
 
 /**
  *
@@ -67,7 +66,7 @@ public class SvListarCapacitacion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Capacitacion>listaCapacitacion = new ArrayList<>();
+        //List<Capacitacion>listaCapacitacion = new ArrayList<>();
        
         HttpSession session = request.getSession();
         
@@ -76,46 +75,21 @@ public class SvListarCapacitacion extends HttpServlet {
         }
         else {
             try {
-                //1. CREO U OBTENGO LA CONEXION
-                Connection conn = ConexionSingleton.getConexion();
-                //2. CREAR OBJETO STATEMENT
-                Statement st = conn.createStatement();
-                //3. CREAR LA SENTENCIA SQL
-                String querySQL = "SELECT * FROM Capacitacion;";
-                //4. EJECUTAR 
-                ResultSet rs = st.executeQuery(querySQL);
-                //5. RECORRER RESULTSET
-                while(rs.next()){
-                    //LEER CADA CAMPO, PARA CREAR OBJETO CAPACITACION EN CADA ITERACIÓN
-                    Capacitacion capacitacion = new Capacitacion();
-
-                    capacitacion.setId(rs.getInt("idCapacitacion"));
-                    capacitacion.setFecha(rs.getDate("capFecha"));
-                    capacitacion.setHora(rs.getString("capHora"));
-                    capacitacion.setLugar(rs.getString("capLugar"));
-                    capacitacion.setDuracion(rs.getInt("capDuracion"));
-                    capacitacion.setRutCliente(rs.getInt("cliente_rutCliente"));
-
-                    //AÑADIR OBJETO CAPACITACION AL ARRAY
-                    listaCapacitacion.add(capacitacion);
-
-                }
+                //INSTANCIAR EL DAOMANAGER
+                MySQLDaoManager manager = new MySQLDaoManager();
+                //OBTENER LA LISTA QUE TRAE EL MÉTODO OBTENER TODOS
+                List<Capacitacion> listaCapacitacion = manager.getCapacitacionDAO().obtenerTodos();
                 
-                //6. ENVIAR EL ARRAYLIST CAPACITACION A LA VISTA COMO PARÁMETRO
+                // ENVIAR EL ARRAYLIST CAPACITACION A LA VISTA COMO PARÁMETRO
                 request.setAttribute("listaCapacitacion", listaCapacitacion);
                 
-                //7. REDIRECCIONAR
+                // REDIRECCIONAR
                 RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp");
                 dispatcher.forward(request, response);
-
-            } catch (SQLException ex) {
+            } catch (DAOException ex) {
                 Logger.getLogger(SvListarCapacitacion.class.getName()).log(Level.SEVERE, null, ex);
-            }finally{
-                //5. CERRAR LA CONEXION A LA BBDD
-                //ConexionSingleton.close();
             }
         }
-
     }
 
     /**
