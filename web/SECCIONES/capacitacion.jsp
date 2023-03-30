@@ -29,17 +29,8 @@
                     </div>
     
                     <div class="form-floating mb-3">
-                        <select name="diaSemana" id="diaSemana" class="form-select" required id="diaSemana">
-                            <option selected>Seleccione un día</option>
-                            <option value="1">Lunes</option>
-                            <option value="2">Martes</option>
-                            <option value="3">Miércoles</option>
-                            <option value="4">Jueves</option>
-                            <option value="5">Viernes</option>
-                            <option value="6">Sábado</option>
-                            <option value="7">domingo</option>
-                        </select>
-                        <label for="diaSemana">Día Semana:</label>
+                        <input type="date" class="form-control" placeholder="Fecha" id="hora" name="fecha">
+                        <label for="fecha">Fecha:</label>
                     </div>
     
                     <div class="form-floating mb-3">

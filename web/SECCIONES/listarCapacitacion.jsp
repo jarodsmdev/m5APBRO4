@@ -46,7 +46,6 @@
                             <td>"${objetos.capDuracion}"</td>
                             <td>"${objetos.capHora}"</td>
                         </tr>
-                
                     </c:forEach>
                 </tbody>
             </table>

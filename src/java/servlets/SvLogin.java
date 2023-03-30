@@ -67,7 +67,7 @@ public class SvLogin extends HttpServlet {
         if(session.getAttribute("nombre") != null){
             //SI EXISTE, ELIMINAR EL ATRIBUTO
             session.removeAttribute("nombre");
-            response.sendRedirect("SvContacto");
+            response.sendRedirect("SvLogin");
         }
         else{
             response.sendRedirect("SECCIONES/login.jsp");
@@ -93,13 +93,12 @@ public class SvLogin extends HttpServlet {
 
         if (user == null || pass == null || !validar(user, pass)) {
             request.setAttribute("mensajeError", "Credenciales inválidas.");
-            //response.sendRedirect("SECCIONES/login.jsp");
             request.getRequestDispatcher("SECCIONES/login.jsp").forward(request, response);
         }
         else {
             HttpSession sesion = request.getSession();
             sesion.setAttribute("nombre", user);
-            response.sendRedirect("SECCIONES/contacto.jsp");
+            response.sendRedirect("index.jsp");
             
         }
     }

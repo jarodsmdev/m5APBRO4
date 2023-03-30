@@ -4,6 +4,9 @@
  */
 package servlets;
 
+import Interface.DAOCapacitacion;
+import Interface.DAOCapacitacionImpl;
+import clases.Capacitacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -66,8 +69,6 @@ public class SvCapacitacion extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/SvLogin");
         }
         else {
-            //response.sendRedirect(request.getContextPath() + "/SvCapacitacion");
-            //response.sendRedirect("SvCapacitacion");
             RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/capacitacion.jsp");
             dispatcher.forward(request, response);
         }
@@ -84,11 +85,31 @@ public class SvCapacitacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        processRequest(request, response);
- 
 
-        
+    Capacitacion cap = new Capacitacion();
+    
+    String rutCliente = request.getParameter("rut");
+    String fecha = request.getParameter("fecha");
+    String hora = request.getParameter("hora");
+    String lugar = request.getParameter("lugar");
+    String duracion = request.getParameter("duracion");
+    String cantAsistentes = request.getParameter("cantAsistentes");
+    
+    cap.setCliente_rutCliente(Integer.parseInt("rutCliente"));
+    cap.setCapFecha("fecha");
+    cap.setCapHora("hora");
+    cap.setCapLugar("lugar");
+    cap.setCapDuracion(Integer.parseInt("duracion"));
+    cap.setIdCapacitacion(Integer.parseInt("cantAsistentes"));
+    
+    try {
+        DAOCapacitacion dao = new DAOCapacitacionImpl();
+        dao.registrar(cap);
+    } catch (Exception e){
+        System.out.println("ERROR: " + e.getMessage());
+    }
+    
+    request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp").forward(request, response);
     }
 
     /**
