@@ -80,13 +80,13 @@ public class SvListarCapacitacion extends HttpServlet {
                 Connection conn = ConexionSingleton.getConexion();
                 //2. CREAR OBJETO STATEMENT
                 Statement st = conn.createStatement();
-                //3. CREAR LA SENTENCIA
+                //3. CREAR LA SENTENCIA SQL
                 String querySQL = "SELECT * FROM Capacitacion;";
                 //4. EJECUTAR 
                 ResultSet rs = st.executeQuery(querySQL);
                 //5. RECORRER RESULTSET
                 while(rs.next()){
-                    //LEER CADA CAMPO, PARA CREAR OBJETO CAPACITACION 
+                    //LEER CADA CAMPO, PARA CREAR OBJETO CAPACITACION EN CADA ITERACIÓN
                     Capacitacion capacitacion = new Capacitacion();
 
                     capacitacion.setId(rs.getInt("idCapacitacion"));
@@ -101,14 +101,13 @@ public class SvListarCapacitacion extends HttpServlet {
 
                 }
                 
-                //ENVIAR EL ARRAYLIST CAPACITACION A LA VISTA COMO PARÁMETRO
+                //6. ENVIAR EL ARRAYLIST CAPACITACION A LA VISTA COMO PARÁMETRO
                 request.setAttribute("listaCapacitacion", listaCapacitacion);
                 
-                //REDIRECCIONAR
-                System.out.println("Antes de redirigir..."); //TODO: BORRAR
+                //7. REDIRECCIONAR
                 RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp");
                 dispatcher.forward(request, response);
-                System.out.println("Después de redirigir...");//TODO: BORRAR
+
             } catch (SQLException ex) {
                 Logger.getLogger(SvListarCapacitacion.class.getName()).log(Level.SEVERE, null, ex);
             }finally{

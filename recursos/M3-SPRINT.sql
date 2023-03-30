@@ -9,7 +9,8 @@ USE SPRINT_PREV_RIESGOS;
 
 /*CREAR TABLA Cliente*/
 CREATE TABLE Cliente(
-	rutCliente INT(9) NOT NULL PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT,
+    rutCliente INT(9) NOT NULL,
     nombres VARCHAR(30) NOT NULL,
     apellidos VARCHAR(30) NOT NULL,
     telefono VARCHAR(20) NOT NULL,
@@ -17,12 +18,14 @@ CREATE TABLE Cliente(
     sistemaSalud VARCHAR(2) NULL,
     direccion VARCHAR(70) NULL,
     comuna VARCHAR(50) NULL,
-    edad INT(3) NOT NULL
+    edad INT(3) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (rutCliente)
 );
 
 /*CREAR TABLA Accidente*/
 CREATE TABLE Accidente(
-	accidenteId INT(9) NOT NULL PRIMARY KEY,
+    accidenteId INT(9) NOT NULL PRIMARY KEY,
     dia DATE NULL,
     hora TIME NULL,
     lugar VARCHAR(50) NOT NULL,
@@ -39,7 +42,7 @@ FOREIGN KEY (cliente_rutCliente) REFERENCES Cliente(rutCliente);
 
 /*CREAR TABLA Capacitacion*/
 CREATE TABLE Capacitacion(
-	idCapacitacion INT(9) NOT NULL PRIMARY KEY,
+    idCapacitacion INT(9) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     fecha DATE NULL,
     hora TIME NULL,
     lugar VARCHAR(50) NOT NULL,
@@ -55,7 +58,7 @@ FOREIGN KEY (cliente_rutCliente) REFERENCES Cliente(rutCliente);
 
 /*CREAR TABLA Asistentes*/
 CREATE TABLE Asistentes(
-	idAsistente INT(9) NOT NULL PRIMARY KEY,
+    idAsistente INT(9) NOT NULL PRIMARY KEY,
     nombres VARCHAR(100) NOT NULL,
     edad INT(3) NOT NULL,
     capacitacion_idCapacitacion INT(9) NOT NULL
@@ -108,7 +111,7 @@ RENAME COLUMN consecuencias TO acciConsecuencias;
 
 /*CREAR TABLA Visita*/
 CREATE TABLE Visita(
-	idVisita INT(9) NOT NULL PRIMARY KEY,
+    idVisita INT(9) NOT NULL PRIMARY KEY,
     visFecha DATE NOT NULL,
     visHora TIME NULL,
     visLugar VARCHAR(50) NOT NULL,
