@@ -5,7 +5,7 @@
 package servlets;
 
 import conexion.ConexionSingleton;
-import dto.Capacitacion;
+import modelo.Capacitacion;
 import java.sql.*;
 import java.util.Calendar;
 import java.io.IOException;
@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mysql.MySQLManagerDAO;
+import DAO.ExceptionDAO;
+import modelo.Capacitacion;
 
 /**
  *
