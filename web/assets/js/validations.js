@@ -19,19 +19,23 @@
   })
 })();
 
+//ESPERO A QUE EL DOCUMENTO SE ENCUENTRE TOTALMENTE CARGADO
 document.addEventListener("DOMContentLoaded", function(){
-  //CAPTURO EL ELEMENTO
 
-  document.addEventListener("keyup", function(){
-    let inputDuracion = document.getElementById("duracion");
-    validarDuracion(inputDuracion);
-    
-    let inputAsistentes = document.getElementById("cantAsistentes");
-    validarDuracion(inputAsistentes);
+    //ESTOY A LA ESCUCHA DE LOS INPUTS PARA LA VALIDACION DE SOLO NUMEROS
+    document.addEventListener("keyup", function(){
+        //INPUT DURACION
+        let inputDuracion = document.getElementById("duracion");
+        validarDuracion(inputDuracion);
+        
+        //INPUT ASISTENTES
+        let inputAsistentes = document.getElementById("cantAsistentes");
+        validarDuracion(inputAsistentes);
   })
   
 });
 
+//FUNCIÓN PARA VALIDAR SOLO NUMEROS EN LOS INPUTS RECIBE COMO PARÁMETRO UN ELEMENTO HTML
 function validarDuracion(elementoHTML){
   const regEx = new RegExp(/^\d+$/);
   
