@@ -23,7 +23,7 @@
 
 <body class="container">
     <main>
-        <h2 class="text-center py-3 fs-2">Nuestra Empresa</h2>
+        <h2 class="text-center py-3 my-5">Nuestra Empresa</h2>
 
         <p class="text-justify">
             Bienvenido al sitio web de nuestra empresa de Prevención de Riesgos. Somos una compañía especializada en ofrecer soluciones en materia de seguridad laboral y prevención de accidentes. En esta página encontrarás información detallada sobre nuestros servicios y cómo podemos ayudarte a garantizar un ambiente de trabajo seguro y saludable para tus empleados.
