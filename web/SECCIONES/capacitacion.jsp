@@ -1,9 +1,9 @@
 <%-- 
     Document   : capacitacion
     Created on : Mar 22, 2023, 6:47:22 PM
-    Author     : jarod
+    Author     : Leonel
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,57 +19,80 @@
         
         <main>
             
-            <h2 class="text-center py-3">Crear Capacitación</h2>
+            <h2 class="text-center py-3 my-5">Crear Capacitación</h2>
+            
+            <% String mensaje = request.getAttribute("mensaje") != null ? request.getAttribute("mensaje").toString() : ""; %>
+
+            <% if (mensaje != null && !mensaje.isEmpty()) { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="mensajeError">
+                    <strong>¡Éxito!</strong> <%= mensaje %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
                 
-                <form action="" method="POST">
+                <form action="SvCapacitacion" method="POST" class="needs-validation" novalidate>
 
                     <div class="form-floating mb-3">
-                        <input type="text" required class="form-control" placeholder="Rut Cliente" name="rut">
-                        <label for="rutCliente">RUT Cliente:</label>
-                    </div>
-    
-                    <div class="form-floating mb-3">
-                        <select name="diaSemana" id="diaSemana" class="form-select" required id="diaSemana">
-                            <option selected>Seleccione un día</option>
-                            <option value="1">Lunes</option>
-                            <option value="2">Martes</option>
-                            <option value="3">Miércoles</option>
-                            <option value="4">Jueves</option>
-                            <option value="5">Viernes</option>
-                            <option value="6">Sábado</option>
-                            <option value="7">domingo</option>
+                        <select name="rutCliente" id="rutCliente" class="form-select" required id="rutCliente">
+                            <option selected disabled value=""">Seleccione un Cliente</option>
+                            <c:forEach var="cliente" items="${listaClientes}">
+                                <option value="${cliente.rut}">${cliente.obtenerNombreApellido()}</option>
+                            </c:forEach>
                         </select>
-                        <label for="diaSemana">Día Semana:</label>
+                        <label for="rutCliente">Cliente:</label>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un Cliente.
+                            </div>
+
                     </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" placeholder="Fecha" id="hora" name="fecha" required="">
+                        <label for="fecha">Fecha:</label>
+                        <div class="invalid-feedback">
+                            Por favor ingrese una fecha.
+                        </div>
+                    </div>    
     
                     <div class="form-floating mb-3">
-                        <input type="text" maxlength="5" class="form-control" placeholder="Hora" id="hora" name="hora">
+                        <input type="time" class="form-control" placeholder="Hora" id="hora" name="hora" value="22:00">
                         <label for="hora">Hora:</label>
                     </div>
     
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" required minlength="10" maxlength="50" placeholder="Lugar" id="lugar" name="lugar">
+                        <input type="text" class="form-control" placeholder="Lugar" id="lugar" name="lugar" required>
                         <label for="lugar">Lugar:</label>
+                        <div class="invalid-feedback">
+                            Por favor ingrese el lugar de la Capacitación.
+                        </div>
                     </div>
     
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" maxlength="70" placeholder="Duración" id="duracion" name="duracion">
+                        <input type="text" class="form-control" maxlength="70" placeholder="Duración" id="duracion" name="duracion" required>
                         <label for="duracion">Duración:</label>
+                        <div class="invalid-feedback">
+                            Por favor ingrese duración en minutos.
+                        </div>
                     </div>
     
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" required placeholder="Cantidad de Asistentes" id="cantAsistentes" name="cantAsistentes">
                         <label for="cantAsistentes">Cantidad de Asistentes:</label>
+                        <div class="invalid-feedback">
+                            Por favor ingrese cantidad de asistentes.
+                        </div>
                     </div>
     
                    
-                    <input type="submit" value="Crear Capacitación" class="btn btn-primary">
+                    <input type="submit" value="Guardar" class="btn btn-primary w-25">
                       
                 </form>
         </main>
 
                 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/validations.js"></script>
     </body>
 
     <footer class="py-3">
