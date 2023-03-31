@@ -74,12 +74,14 @@ public class SvListarCapacitacion extends HttpServlet {
         } else {
             try {
                 DAOCapacitacion dao = new DAOCapacitacionImpl();
+                System.out.println("listando...");
                 request.setAttribute("lista", dao.listar());
             } catch (Exception e){
                 System.out.println("ERROR: " + e.getMessage());
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp");
             dispatcher.forward(request, response);
+            
         }
 
     }

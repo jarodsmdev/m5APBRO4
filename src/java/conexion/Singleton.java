@@ -38,10 +38,10 @@ public class Singleton {
     }
 
     public static void cerrar() throws Exception {
-        if (conn != null) {
-            if (!conn.isClosed()) {
-                conn.close();
-            }
-        }
+//        if (conn != null) {
+//            if (!conn.isClosed()) {
+//                conn.close();
+//            }
+      //  }
     }
 }

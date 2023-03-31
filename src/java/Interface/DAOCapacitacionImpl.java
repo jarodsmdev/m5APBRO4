@@ -24,7 +24,7 @@ public class DAOCapacitacionImpl implements DAOCapacitacion{
         } catch (Exception e){
             throw e;
         } finally {
-            //Singleton.cerrar();
+            Singleton.cerrar();
         }
     }
 
@@ -85,8 +85,8 @@ public class DAOCapacitacionImpl implements DAOCapacitacion{
                 cap.setCliente_rutCliente(rs.getInt("cliente_rutCliente"));
                 lista.add(cap);
             }
-            //rs.close();
-            //stmt.close();
+            rs.close();
+            stmt.close();
             
         } catch (Exception e){
             throw e;
