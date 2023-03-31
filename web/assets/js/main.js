@@ -12,3 +12,4 @@ function removeFadeOut( el, speed ) {
 
 removeFadeOut(document.querySelector('.alert'), 5000);
 });
+

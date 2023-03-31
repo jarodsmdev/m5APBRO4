@@ -30,21 +30,28 @@
                 </div>
             <% } %>
                 
-                <form action="SvCapacitacion" method="POST">
+                <form action="SvCapacitacion" method="POST" class="needs-validation" novalidate>
 
                     <div class="form-floating mb-3">
                         <select name="rutCliente" id="rutCliente" class="form-select" required id="rutCliente">
-                            <option selected>Seleccione un Cliente</option>
+                            <option selected disabled value=""">Seleccione un Cliente</option>
                             <c:forEach var="cliente" items="${listaClientes}">
                                 <option value="${cliente.rut}">${cliente.obtenerNombreApellido()}</option>
                             </c:forEach>
                         </select>
                         <label for="rutCliente">Cliente:</label>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un Cliente.
+                            </div>
+
                     </div>
                     
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" placeholder="Fecha" id="hora" name="fecha">
+                        <input type="date" class="form-control" placeholder="Fecha" id="hora" name="fecha" required="">
                         <label for="fecha">Fecha:</label>
+                        <div class="invalid-feedback">
+                            Por favor ingrese una fecha.
+                        </div>
                     </div>    
     
                     <div class="form-floating mb-3">
@@ -53,18 +60,27 @@
                     </div>
     
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" placeholder="Lugar" id="lugar" name="lugar">
+                        <input type="text" class="form-control" placeholder="Lugar" id="lugar" name="lugar" required>
                         <label for="lugar">Lugar:</label>
+                        <div class="invalid-feedback">
+                            Por favor ingrese el lugar de la Capacitación.
+                        </div>
                     </div>
     
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" maxlength="70" placeholder="Duración" id="duracion" name="duracion">
+                        <input type="text" class="form-control" maxlength="70" placeholder="Duración" id="duracion" name="duracion" required>
                         <label for="duracion">Duración:</label>
+                        <div class="invalid-feedback">
+                            Por favor ingrese duración en minutos.
+                        </div>
                     </div>
     
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" required placeholder="Cantidad de Asistentes" id="cantAsistentes" name="cantAsistentes">
                         <label for="cantAsistentes">Cantidad de Asistentes:</label>
+                        <div class="invalid-feedback">
+                            Por favor ingrese cantidad de asistentes.
+                        </div>
                     </div>
     
                    
@@ -76,6 +92,7 @@
                 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <script src="assets/js/main.js"></script>
+        <script src="assets/js/validations.js"></script>
     </body>
 
     <footer class="py-3">
