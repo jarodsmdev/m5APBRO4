@@ -1,7 +1,6 @@
 package Interface;
 
 import conexion.Singleton;
-import Interface.DAOCapacitacion;
 import clases.Capacitacion;
 import java.util.List;
 import java.sql.*;
@@ -51,14 +50,13 @@ public class DAOCapacitacionImpl implements DAOCapacitacion{
     public void eliminar(Capacitacion cap) throws Exception {
         try {
             Connection conn = Singleton.conectar();
-            PreparedStatement stmt = conn.prepareStatement("DELETE `sprint_prev_riesgos`.`capacitacion` SET `idCapacitacion` = '?', `capFecha` = '?', `capHora` = '?', `capLugar` = '?', `capDuracion` = '?', `cliente_rutCliente` = '?' WHERE (`idCapacitacion` = '?')");
-            stmt.setInt(1, cap.getIdCapacitacion());
-            stmt.setString(2, cap.getCapFecha());
-            stmt.setString(3, cap.getCapHora());
-            stmt.setString(4, cap.getCapLugar());
-            stmt.setInt(5, cap.getCapDuracion());
-            stmt.setInt(6, cap.getCliente_rutCliente());
-            stmt.executeUpdate();
+            PreparedStatement stmt1 = conn.prepareStatement("SET FOREIGN_KEY_CHECKS=0;");
+            PreparedStatement stmt2 = conn.prepareStatement("DELETE FROM `sprint_prev_riesgos`.`capacitacion` WHERE idCapacitacion = ?;");
+            PreparedStatement stmt3 = conn.prepareStatement("SET FOREIGN_KEY_CHECKS=1;");
+            stmt2.setInt(1, cap.getIdCapacitacion());
+            stmt1.executeUpdate();
+            stmt2.executeUpdate();
+            stmt3.executeUpdate();
         } catch (Exception e){
             throw e;
         } finally {
@@ -71,6 +69,7 @@ public class DAOCapacitacionImpl implements DAOCapacitacion{
         List<Capacitacion> lista = null;
         try {
             Connection conn = Singleton.conectar();
+            System.out.println("inicando singleton");
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM capacitacion");
             
             lista = new ArrayList();
@@ -92,6 +91,7 @@ public class DAOCapacitacionImpl implements DAOCapacitacion{
             throw e;
         } finally {
             Singleton.cerrar();
+            System.out.println("cerrando singleton");
         }
         return lista;
     }

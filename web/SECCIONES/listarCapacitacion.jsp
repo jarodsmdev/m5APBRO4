@@ -39,12 +39,18 @@
                 <tbody>
                     <c:forEach items="${lista}" var="objetos">
                         <tr>
-                            <td>"${objetos.idCapacitacion}"</td>
-                            <td>"${objetos.cliente_rutCliente}"</td>
-                            <td>"${objetos.capFecha}"</td>
-                            <td>"${objetos.capLugar}"</td>
-                            <td>"${objetos.capDuracion}"</td>
-                            <td>"${objetos.capHora}"</td>
+                            <form action="" method="POST">
+                                <td>${objetos.idCapacitacion}</td>
+                                <td>"${objetos.cliente_rutCliente}"</td>
+                                <td>"${objetos.capFecha}"</td>
+                                <td>"${objetos.capLugar}"</td>
+                                <td>"${objetos.capDuracion}"</td>
+                                <td>"${objetos.capHora}"</td>
+                                <td>
+                                    <input type="hidden" name="id" value="${objetos.idCapacitacion}" />
+                                    <button type="submit" class="btn btn-primary mb-3 w-50" >Eliminar</button>
+                                </td>
+                            </form>
                         </tr>
                     </c:forEach>
                 </tbody>

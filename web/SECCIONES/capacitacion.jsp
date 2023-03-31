@@ -24,33 +24,28 @@
                 <form action="" method="POST">
 
                     <div class="form-floating mb-3">
-                        <input type="text" required class="form-control" placeholder="Rut Cliente" name="rut">
+                        <input type="text" class="form-control" placeholder="Rut Cliente" name="rut">
                         <label for="rutCliente">RUT Cliente:</label>
                     </div>
     
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" placeholder="Fecha" id="hora" name="fecha">
+                        <input type="date" class="form-control" placeholder="Fecha" name="fecha">
                         <label for="fecha">Fecha:</label>
                     </div>
     
                     <div class="form-floating mb-3">
-                        <input type="text" maxlength="5" class="form-control" placeholder="Hora" id="hora" name="hora">
+                        <input type="text" maxlength="5" class="form-control" placeholder="Hora" name="hora">
                         <label for="hora">Hora:</label>
                     </div>
     
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" required minlength="10" maxlength="50" placeholder="Lugar" id="lugar" name="lugar">
+                        <input type="text" class="form-control" required minlength="10" maxlength="50" placeholder="Lugar" name="lugar">
                         <label for="lugar">Lugar:</label>
                     </div>
     
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" maxlength="70" placeholder="Duración" id="duracion" name="duracion">
+                        <input type="text" class="form-control" maxlength="70" placeholder="Duración" name="duracion">
                         <label for="duracion">Duración:</label>
-                    </div>
-    
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" required placeholder="Cantidad de Asistentes" id="cantAsistentes" name="cantAsistentes">
-                        <label for="cantAsistentes">Cantidad de Asistentes:</label>
                     </div>
     
                    

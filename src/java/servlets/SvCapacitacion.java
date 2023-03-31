@@ -92,14 +92,12 @@ public class SvCapacitacion extends HttpServlet {
         String hora = request.getParameter("hora");
         String lugar = request.getParameter("lugar");
         String duracion = request.getParameter("duracion");
-        String cantAsistentes = request.getParameter("cantAsistentes");
 
         cap.setCliente_rutCliente(Integer.parseInt(rutCliente));
         cap.setCapFecha(fecha);
         cap.setCapHora(hora);
         cap.setCapLugar(lugar);
         cap.setCapDuracion(Integer.parseInt(duracion));
-        cap.setIdCapacitacion(Integer.parseInt(cantAsistentes));
 
         try {
             DAOCapacitacion dao = new DAOCapacitacionImpl();

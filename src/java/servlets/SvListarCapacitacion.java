@@ -76,12 +76,12 @@ public class SvListarCapacitacion extends HttpServlet {
                 DAOCapacitacion dao = new DAOCapacitacionImpl();
                 System.out.println("listando...");
                 request.setAttribute("lista", dao.listar());
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("ERROR: " + e.getMessage());
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp");
             dispatcher.forward(request, response);
-            
+
         }
 
     }
@@ -97,7 +97,21 @@ public class SvListarCapacitacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        Capacitacion cap = new Capacitacion();
+        
+        String pk = request.getParameter("id");
+        cap.setIdCapacitacion(Integer.parseInt(pk));
+
+        try {
+            DAOCapacitacion dao = new DAOCapacitacionImpl();
+            dao.eliminar(cap);
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        
+        request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp").forward(request, response);
     }
 
     /**
