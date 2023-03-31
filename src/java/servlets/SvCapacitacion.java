@@ -1,16 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package servlets;
 
 import conexion.ConexionSingleton;
+import dao.DAOException;
 import java.sql.*;
 import modelo.Cliente;
-import java.time.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Capacitacion;
+import mysql.MySQLDaoManager;
 
 /**
  *
@@ -111,7 +111,8 @@ public class SvCapacitacion extends HttpServlet {
                 //7. REDIRECCIONAR
                 RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/capacitacion.jsp");
                 dispatcher.forward(request, response);
-
+                
+                
             } catch (SQLException ex) {
                 Logger.getLogger(SvCapacitacion.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -133,7 +134,7 @@ public class SvCapacitacion extends HttpServlet {
             //processRequest(request, response);
             
             //1. RESCATAR LOS DATOS DEL REQUEST
-            //TODO: CAMBIAR EL TIPO DE DATOS Y VALIDAR
+            //TODO: VALIDAR EL TIPO DE DATOS Y VALIDAR
             int rut = Integer.parseInt(request.getParameter("rutCliente"));
             String fecha = request.getParameter("fecha");
             String hora = request.getParameter("hora");
@@ -141,34 +142,36 @@ public class SvCapacitacion extends HttpServlet {
             int duracion = Integer.parseInt(request.getParameter("duracion"));
             String qAsistentes = request.getParameter("cantAsistentes");
             
-            //2. CREAR CONEXION
-            Connection conn = ConexionSingleton.getConexion();
-            //3. CREAR SENTENCIA SQL
-            String querySQL = "INSERT INTO Capacitacion(capFecha, capHora, capLugar, capDuracion, cliente_rutCliente) VALUES(?, ?, ?, ? ,?);";
-            //4. CREAR OBJETO PREPAREDSTATEMENT
-            PreparedStatement st = conn.prepareStatement(querySQL);
-            st.setString(1, fecha);
-            st.setString(2, hora);
-            st.setString(3, lugar);
-            st.setInt(4, duracion);
-            st.setInt(5, rut);
-
-            //5. EJECUTAR CONSULTA SQL
-            int resultado = st.executeUpdate();
+            //2. CREAR OBJETO CAPACITACION
+            Capacitacion capacitacion = new Capacitacion();
             
-            if (resultado > 0) {
-                System.out.println("El registro ha sido insertado exitosamente");
+            //3. SETEAR LOS DATOS DEL OBJETO
+            capacitacion.setRutCliente(rut);
+            capacitacion.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
+            capacitacion.setHora(hora);
+            capacitacion.setLugar(lugar);
+            capacitacion.setDuracion(duracion);
+            
+            //System.out.println(capacitacion.toString());
+            
+            //INSTANCIAR EL DAOMANAGER
+            MySQLDaoManager manager = new MySQLDaoManager();
+            try {
+                //INVOCAR AL MÉTODO PARA LA INSERCIÓN DEL REGISTRO
+                manager.getCapacitacionDAO().insertar(capacitacion);
                 request.setAttribute("mensaje", "Registro Guardado exitosamente");
-            } else {
-                System.out.println("No se ha insertado ningún registro");
+                //6. REDIRECCIONAR
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/capacitacion.jsp");
+                //dispatcher.forward(request, response);
+                
+                //RECARGO LA MISMA PÁGINA A TRAVÉS DEL MÉTODO DOGET PARA QUE VUELVA A TENER LOS DATOS EL COMBOBOX
+                doGet(request,response);
+                //System.out.println("REGISTRO GUARDADO CON ÉXITO");
+            } catch (DAOException ex) {
+                Logger.getLogger(SvCapacitacion.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            //6. REDIRECCIONAR
-            RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/capacitacion.jsp");
-            dispatcher.forward(request, response);
-            System.out.println("REGISTRO GUARDADO CON ÉXITO");
-            
-        } catch (SQLException ex) {
+        } catch (ParseException ex) {
             Logger.getLogger(SvCapacitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

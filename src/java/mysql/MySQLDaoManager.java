@@ -3,11 +3,9 @@ package mysql;
 import conexion.ConexionSingleton;
 import dao.CapacitacionDAO;
 import dao.ClienteDAO;
-import dao.DAOException;
 import dao.DAOManager;
 import java.sql.*;
-import java.util.List;
-import modelo.Capacitacion;
+
 
 public class MySQLDaoManager implements DAOManager{
     private Connection conn;

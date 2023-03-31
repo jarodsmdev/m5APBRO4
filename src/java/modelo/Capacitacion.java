@@ -124,6 +124,11 @@ public class Capacitacion {
     public void setRutCliente(int rutCliente) {
         this.rutCliente = rutCliente;
     }
+
+    @Override
+    public String toString() {
+        return "Capacitacion{" + "id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", lugar=" + lugar + ", duracion=" + duracion + ", rutCliente=" + rutCliente + '}';
+    }
     
     
 }

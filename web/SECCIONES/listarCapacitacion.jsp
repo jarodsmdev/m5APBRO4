@@ -48,7 +48,7 @@
                             <td>${capacitacion.fecha}</td>
                             <td>${capacitacion.hora}</td>
                             <td>${capacitacion.lugar}</td>
-                            <td class="text-center"><i class="fa-solid fa-stopwatch px-1 text-primary"></i>${capacitacion.duracion} mins.</td>
+                            <td class="text-center"><i class="fa-solid fa-stopwatch px-1 text-primary"></i><span>${capacitacion.duracion} min.</span></td>
                             <td></td>
                             <td>
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-pencil"></i></a>
